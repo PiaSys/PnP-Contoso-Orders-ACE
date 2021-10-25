@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Contoso.Orders.FunctionApp.Model;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace Contoso.Orders.FunctionApp
 {
@@ -68,9 +69,11 @@ namespace Contoso.Orders.FunctionApp
         [FunctionName("GetOrders")]
         public IActionResult GetOrders(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "orders")] HttpRequest req,
-            ILogger log)
+            ILogger log,
+            ClaimsPrincipal claimsPrincipal)
         {
             log.LogInformation($"GetOrders invoked.");
+            LogUserInfo(log, claimsPrincipal);
 
             return new OkObjectResult(Orders);
         }
@@ -86,9 +89,11 @@ namespace Contoso.Orders.FunctionApp
         public IActionResult GetOrder(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "orders/{id}")] HttpRequest req,
             ILogger log,
-            string id)
+            string id,
+            ClaimsPrincipal claimsPrincipal)
         {
             log.LogInformation($"GetOrder invoked for order: {id}.");
+            LogUserInfo(log, claimsPrincipal);
 
             var order = Orders.FirstOrDefault(o => o.Id == id);
             if (order != null)
@@ -110,9 +115,11 @@ namespace Contoso.Orders.FunctionApp
         [FunctionName("AddOrder")]
         public async Task<IActionResult> AddOrder(
             [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")] HttpRequest req,
-            ILogger log)
+            ILogger log,
+            ClaimsPrincipal claimsPrincipal)
         {
             log.LogInformation($"AddOrder invoked.");
+            LogUserInfo(log, claimsPrincipal);
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var newOrder = JsonConvert.DeserializeObject<Order>(requestBody);
@@ -133,9 +140,11 @@ namespace Contoso.Orders.FunctionApp
         public async Task<IActionResult> UpdateOrder(
             [HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "orders/{id}")] HttpRequest req,
             ILogger log,
-            string id)
+            string id,
+            ClaimsPrincipal claimsPrincipal)
         {
             log.LogInformation($"UpdateOrder invoked for order: {id}.");
+            LogUserInfo(log, claimsPrincipal);
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var updatedOrder = JsonConvert.DeserializeObject<Order>(requestBody);
@@ -162,9 +171,11 @@ namespace Contoso.Orders.FunctionApp
         public IActionResult DeleteOrder(
             [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "orders/{id}")] HttpRequest req,
             ILogger log,
-            string id)
+            string id,
+            ClaimsPrincipal claimsPrincipal)
         {
             log.LogInformation($"DeleteOrder invoked for order: {id}.");
+            LogUserInfo(log, claimsPrincipal);
 
             var orderToDelete = Orders.FindIndex(o => o.Id == id);
             if (orderToDelete >= 0)
@@ -175,6 +186,21 @@ namespace Contoso.Orders.FunctionApp
             else
             {
                 return new NotFoundResult();
+            }
+        }
+
+        private void LogUserInfo(ILogger log, ClaimsPrincipal claimsPrincipal)
+        {
+            if (claimsPrincipal != null &&
+                claimsPrincipal.Identity != null &&
+                claimsPrincipal.Identity.IsAuthenticated)
+            {
+                log.LogInformation("Invoked by: {0}",
+                    claimsPrincipal.Identity.Name);
+            }
+            else
+            {
+                log.LogInformation("No user's context information.");
             }
         }
     }
