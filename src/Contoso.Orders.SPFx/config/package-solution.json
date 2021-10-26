@@ -8,12 +8,18 @@
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
     "developer": {
-      "name": "",
-      "websiteUrl": "",
+      "name": "Microsoft 365 PnP",
+      "websiteUrl": "https://aka.ms/m365pnp",
       "privacyUrl": "",
       "termsOfUseUrl": "",
       "mpnId": "Undefined-1.13.0"
-    }
+    },
+    "webApiPermissionRequests": [
+      {
+        "resource": "PnP.Contoso.Orders",
+        "scope": "Orders.FullControl"
+      }
+    ]
   },
   "paths": {
     "zippedPackage": "solution/contoso-orders.sppkg"
