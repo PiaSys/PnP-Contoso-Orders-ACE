@@ -33,7 +33,7 @@ namespace Contoso.Orders.FunctionApp
         /// <param name="req">The request</param>
         /// <param name="log">The logging interface</param>
         /// <returns>The list of orders</returns>
-        [FunctionAuthorize(Scopes = "Orders.Read")]
+        [FunctionAuthorize(Scopes = "Orders.Read,Orders.FullControl")]
         [FunctionName("GetOrders")]
         public IActionResult GetOrders(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "orders")] HttpRequest req,
@@ -54,7 +54,7 @@ namespace Contoso.Orders.FunctionApp
         /// <param name="log">The logging interface</param>
         /// <param name="id">The ID of the order to retrieve</param>
         /// <returns>The retrieved order, if any</returns>
-        [FunctionAuthorize(Scopes = "Orders.Read")]
+        [FunctionAuthorize(Scopes = "Orders.Read,Orders.FullControl")]
         [FunctionName("GetOrder")]
         public IActionResult GetOrder(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "orders/{id}")] HttpRequest req,
@@ -232,13 +232,14 @@ namespace Contoso.Orders.FunctionApp
                 from o in Enumerable.Range(1, 10)
                 select new Order
                 {
-                    Id = $"ORD{o.ToString("000")}-{DateTime.Now.Year}",
+                    Id = $"{o.ToString("000")}-{DateTime.Now.Year}",
                     Date = DateTime.Now.AddDays(-1 * rnd.Next(1, 20)),
                     CustomerId = $"C{(o + 25).ToString("000")}",
                     Status =
                         o % 2 == 0 ? OrderStatus.Inserted :
                         o % 3 == 0 ? OrderStatus.Processed :
                         o % 5 == 0 ? OrderStatus.Shipped :
+                        o % 7 == 0 ? OrderStatus.Cancelled :
                         OrderStatus.Closed,
                     Items = (
                         from i in Enumerable.Range(1, rnd.Next(1, 5))

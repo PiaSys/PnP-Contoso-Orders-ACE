@@ -102,7 +102,7 @@ namespace Contoso.Orders.FunctionApp
                                 if (c.Type == "http://schemas.microsoft.com/identity/claims/scope")
                                 {
                                     var claimScopes = c.Value.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-                                    return this.scopesArray.Except(claimScopes).Count() == 0;
+                                    return this.scopesArray.Intersect(claimScopes).Count() > 0;
                                 }
                                 else
                                 {
@@ -121,7 +121,7 @@ namespace Contoso.Orders.FunctionApp
                 var forbiddenText = HttpStatusCode.Forbidden.ToString();
 
                 // notify the security issue to the consumer
-                await RewriteResponse(forbiddenText, httpContext.Response);
+                await RewriteResponse((int)HttpStatusCode.Forbidden, forbiddenText, httpContext.Response);
 
                 // raise a 403 Security Exception
                 throw new Exception($"{(int)HttpStatusCode.Forbidden} - {forbiddenText}");
@@ -130,10 +130,11 @@ namespace Contoso.Orders.FunctionApp
             await base.OnExecutingAsync(executingContext, cancellationToken);
         }
 
-        private async Task RewriteResponse(string message, HttpResponse response)
+        private async Task RewriteResponse(int statusCode, string message, HttpResponse response)
         {
             if (!response.HasStarted)
             {
+                response.StatusCode = statusCode;
                 response.ContentType = "text/plain";
                 response.ContentLength = message.Length;
                 await response.WriteAsync(message);

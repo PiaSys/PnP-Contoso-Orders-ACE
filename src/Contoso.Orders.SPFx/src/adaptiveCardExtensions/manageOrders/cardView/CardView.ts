@@ -6,17 +6,31 @@ import {
   ICardButton
 } from '@microsoft/sp-adaptive-card-extension-base';
 import * as strings from 'ManageOrdersAdaptiveCardExtensionStrings';
-import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState, QUICK_VIEW_REGISTRY_ID } from '../ManageOrdersAdaptiveCardExtension';
+import { 
+  IManageOrdersAdaptiveCardExtensionProps, 
+  IManageOrdersAdaptiveCardExtensionState, 
+  ADDORDER_QUICK_VIEW_REGISTRY_ID,
+  LISTORDERS_QUICK_VIEW_REGISTRY_ID
+} from '../ManageOrdersAdaptiveCardExtension';
 
 export class CardView extends BaseBasicCardView<IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState> {
   public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] | undefined {
     return [
       {
-        title: strings.QuickViewButton,
+        title: strings.ListOrdersQuickViewButton,
         action: {
           type: 'QuickView',
           parameters: {
-            view: QUICK_VIEW_REGISTRY_ID
+            view: LISTORDERS_QUICK_VIEW_REGISTRY_ID
+          }
+        }
+      },
+      {
+        title: strings.AddOrderQuickViewButton,
+        action: {
+          type: 'QuickView',
+          parameters: {
+            view: ADDORDER_QUICK_VIEW_REGISTRY_ID
           }
         }
       }
@@ -33,7 +47,7 @@ export class CardView extends BaseBasicCardView<IManageOrdersAdaptiveCardExtensi
     return {
       type: 'ExternalLink',
       parameters: {
-        target: 'https://www.bing.com'
+        target: 'https://aka.ms/m365pnp'
       }
     };
   }

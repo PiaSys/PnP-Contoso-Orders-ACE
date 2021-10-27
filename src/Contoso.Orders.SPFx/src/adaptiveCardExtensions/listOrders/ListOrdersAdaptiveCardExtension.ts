@@ -1,12 +1,15 @@
 import { IPropertyPaneConfiguration } from '@microsoft/sp-property-pane';
 import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension-base';
 import { CardView } from './cardView/CardView';
-import { QuickView } from './quickView/QuickView';
+import { ListOrdersQuickView } from './quickView/ListOrdersQuickView';
 import { ListOrdersPropertyPane } from './ListOrdersPropertyPane';
-import { Order } from '../../services/Order';
 import * as strings from 'ListOrdersAdaptiveCardExtensionStrings';
 import { DisplayMode } from '@microsoft/sp-core-library';
 import { AadHttpClient } from '@microsoft/sp-http';
+
+// Import types to work with OrdersService
+import { Order } from '../../services/Order';
+import { OrdersService } from '../../services/OrdersService';
 
 export interface IListOrdersAdaptiveCardExtensionProps {
   title: string;
@@ -20,7 +23,7 @@ export interface IListOrdersAdaptiveCardExtensionState {
 }
 
 const CARD_VIEW_REGISTRY_ID: string = 'ListOrders_CARD_VIEW';
-export const QUICK_VIEW_REGISTRY_ID: string = 'ListOrders_QUICK_VIEW';
+export const LISTORDERS_QUICK_VIEW_REGISTRY_ID: string = 'ListOrders_QUICK_VIEW';
 
 export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExtension<
   IListOrdersAdaptiveCardExtensionProps,
@@ -35,7 +38,7 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
     };
 
     this.cardNavigator.register(CARD_VIEW_REGISTRY_ID, () => new CardView());
-    this.quickViewNavigator.register(QUICK_VIEW_REGISTRY_ID, () => new QuickView());
+    this.quickViewNavigator.register(LISTORDERS_QUICK_VIEW_REGISTRY_ID, () => new ListOrdersQuickView());
 
     // Create the AadHttpClient instance for the back-end API via aadHttpClientFactory
     this.aadClient = await this.context.aadHttpClientFactory.getClient("api://pnp.contoso.orders");
@@ -50,41 +53,26 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
     // Skip in case we are missing settings
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
+      this.setState({
+        description: strings.ConfigureMessage
+      });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
-      }
-      else {
-        this.setState({
-          description: strings.ConfigureMessage
-        })
       }
     }
     else
     {
-      // Load the requested symbols
-      const symbols: string[] = this.properties.symbols.split(",");
+      // Create an instance of the OrderService
+      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      // Configure the initial/default symbol
-      let symbol = symbols[0];
-
-      // Determine what the next symbol is
-      if (this.state.symbol !== '') {
-        const currentSymbolIndex: number = symbols.indexOf(this.state.symbol);
-        symbol = symbols[currentSymbolIndex < (symbols.length - 1) ? currentSymbolIndex + 1 : 0];
-      }
-
-      // Get the actual quote of the current symbol
-      const httpResponse = await this.aadClient.get(`${this.properties.quoteServiceUrl}&symbol=${symbol}`,
-      AadHttpClient.configurations.v1);
-      const stockInfo: StockQuoteInfo = await httpResponse.json();
+      // Use it to get the list of orders
+      const orders = await ordersService.GetOrders();
 
       this.setState({
-        symbol: stockInfo.symbol,
-        quote: stockInfo.quote,
-        trend: stockInfo.trend
+        description: `There are ${orders.length} orders in the system`,
+        orders: orders
       });
-
-      console.log(`Stock quote request for ${stockInfo.user}`);
+    }
   }
 
   public get title(): string {
@@ -113,5 +101,12 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
 
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
     return this._deferredPropertyPane!.getPropertyPaneConfiguration();
+  }
+
+  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
+    console.log(propertyPath);
+    console.log(oldValue);
+    console.log(newValue);
+    this.loadOrders();
   }
 }

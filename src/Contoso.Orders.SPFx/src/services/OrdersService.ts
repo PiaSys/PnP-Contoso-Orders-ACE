@@ -1,4 +1,16 @@
 import { Order } from './Order';
+import { AadHttpClient, IHttpClientOptions } from '@microsoft/sp-http';
+import * as strings from 'OrderServiceStrings';
+
+
+/**
+ * Define a custom Error type for the Orders Service
+ */
+ export class OrderServiceError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
 
 /**
  * Define the abstract inteface for the Orders Service
@@ -41,12 +53,42 @@ export interface IOrdersService {
 
 export class OrdersService implements IOrdersService {
 
+    private serviceBaseUrl: string;
+    private aadClient: AadHttpClient;
+
+    constructor(aadClient: AadHttpClient, serviceBaseUrl: string) {
+        if (aadClient === undefined) {
+            throw new Error(strings.ErrorNullArgument + 'aadClient');
+        }
+
+        if (serviceBaseUrl === undefined) {
+            throw new Error(strings.ErrorNullArgument + 'serviceBaseUrl');
+        }
+
+        this.aadClient = aadClient;
+        this.serviceBaseUrl = serviceBaseUrl.replace(/\/$/, "");
+    }
+
     /**
      * Returns the whole list of orders
      * @returns The whole list of orders
      */
     public async GetOrders(): Promise<Order[]> {
-        return null;
+
+        // Make the actual HTTP request
+        const httpResponse = await this.aadClient.get(
+            `${this.serviceBaseUrl}/api/orders`, 
+            AadHttpClient.configurations.v1);
+
+        if (httpResponse.status !== 200) {
+            throw new OrderServiceError(strings.ErrorRetrievingOrders);
+        }
+    
+        // Parse the JSON response
+        const result: Order[] = await httpResponse.json();
+
+        // Return the orders
+        return result;
     }
 
      /**
@@ -55,7 +97,21 @@ export class OrdersService implements IOrdersService {
       * @returns A specific order by ID
       */
     public async GetOrder(id: string): Promise<Order> {
-        return null;
+
+        // Make the actual HTTP request
+        const httpResponse = await this.aadClient.get(
+            `${this.serviceBaseUrl}/api/orders/${id}`, 
+            AadHttpClient.configurations.v1);
+
+        if (httpResponse.status !== 200) {
+            throw new OrderServiceError(strings.ErrorRetrievingOrder);
+        }
+    
+        // Parse the JSON response
+        const result: Order = await httpResponse.json();
+
+        // Return the single order
+        return result;
     }
  
      /**
@@ -64,7 +120,32 @@ export class OrdersService implements IOrdersService {
       * @returns The just inserted order
       */
     public async AddOrder(order: Order): Promise<Order> {
-        return null;
+
+        // Define the HTTP request headers
+        const requestHeaders: Headers = new Headers();
+        requestHeaders.append('Content-type', 'application/json');
+
+        // Configure the request options
+        const httpOptions: IHttpClientOptions = {
+            body: JSON.stringify(order),
+            headers: requestHeaders
+        };
+
+        // Make the actual HTTP request
+        const httpResponse = await this.aadClient.post(
+            `${this.serviceBaseUrl}/api/orders`, 
+            AadHttpClient.configurations.v1,
+            httpOptions);
+
+        if (httpResponse.status !== 200) {
+            throw new OrderServiceError(strings.ErrorAddingOrder);
+        }
+
+        // Parse the JSON response
+        const result: Order = await httpResponse.json();
+
+        // Return the single order
+        return result;
     }
  
      /**
@@ -73,7 +154,33 @@ export class OrdersService implements IOrdersService {
       * @returns The just updated order
       */
     public async UpdateOrder(order: Order): Promise<Order> {
-        return null;
+
+        // Define the HTTP request headers
+        const requestHeaders: Headers = new Headers();
+        requestHeaders.append('Content-type', 'application/json');
+
+        // Configure the request options
+        const httpOptions: IHttpClientOptions = {
+            method: "PUT",
+            body: JSON.stringify(order),
+            headers: requestHeaders
+        };
+
+        // Make the actual HTTP request
+        const httpResponse = await this.aadClient.fetch(
+            `${this.serviceBaseUrl}/api/orders/${order.id}`, 
+            AadHttpClient.configurations.v1,
+            httpOptions);
+
+        if (httpResponse.status !== 200) {
+            throw new OrderServiceError(strings.ErrorUpdatingOrder);
+        }
+
+        // Parse the JSON response
+        const result: Order = await httpResponse.json();
+
+        // Return the single order
+        return result;
     }
  
      /**
@@ -81,8 +188,25 @@ export class OrdersService implements IOrdersService {
       * @param id The ID of the order to delete
       */
      public async DeleteOrder(id: string): Promise<void> {
-        return;
+
+        // Define the HTTP request headers
+        const requestHeaders: Headers = new Headers();
+        requestHeaders.append('Content-type', 'application/json');
+
+        // Configure the request options
+        const httpOptions: IHttpClientOptions = {
+            method: "DELETE",
+            headers: requestHeaders
+        };
+
+        // Make the actual HTTP request
+        const httpResponse = await this.aadClient.fetch(
+            `${this.serviceBaseUrl}/api/orders/${id}`, 
+            AadHttpClient.configurations.v1,
+            httpOptions);
+
+        if (httpResponse.status !== 200) {
+            throw new OrderServiceError(strings.ErrorDeletingOrder);
+        }
      }
 }
-
-export const ordersService = new OrdersService();

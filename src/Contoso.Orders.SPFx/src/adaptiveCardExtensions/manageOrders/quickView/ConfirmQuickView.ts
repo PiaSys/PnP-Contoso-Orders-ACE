@@ -2,26 +2,26 @@ import { ISPFxAdaptiveCard, BaseAdaptiveCardView } from '@microsoft/sp-adaptive-
 import * as strings from 'ManageOrdersAdaptiveCardExtensionStrings';
 import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState } from '../ManageOrdersAdaptiveCardExtension';
 
-export interface IQuickViewData {
+export interface IConfirmQuickViewData {
   subTitle: string;
   title: string;
   description: string;
 }
 
-export class QuickView extends BaseAdaptiveCardView<
+export class ConfirmQuickView extends BaseAdaptiveCardView<
   IManageOrdersAdaptiveCardExtensionProps,
   IManageOrdersAdaptiveCardExtensionState,
-  IQuickViewData
+  IConfirmQuickViewData
 > {
-  public get data(): IQuickViewData {
+  public get data(): IConfirmQuickViewData {
     return {
       subTitle: strings.SubTitle,
       title: strings.Title,
-      description: this.properties.description
+      description: this.state.description
     };
   }
 
   public get template(): ISPFxAdaptiveCard {
-    return require('./template/QuickViewTemplate.json');
+    return require('./template/ConfirmQuickViewTemplate.json');
   }
 }

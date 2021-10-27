@@ -1,27 +1,28 @@
 import { ISPFxAdaptiveCard, BaseAdaptiveCardView } from '@microsoft/sp-adaptive-card-extension-base';
 import * as strings from 'ListOrdersAdaptiveCardExtensionStrings';
 import { IListOrdersAdaptiveCardExtensionProps, IListOrdersAdaptiveCardExtensionState } from '../ListOrdersAdaptiveCardExtension';
+import { Order } from '../../../services/Order';
 
-export interface IQuickViewData {
-  subTitle: string;
+export interface IListOrdersQuickViewData {
   title: string;
-  description: string;
+  subTitle: string;
+  orders: Order[];
 }
 
-export class QuickView extends BaseAdaptiveCardView<
+export class ListOrdersQuickView extends BaseAdaptiveCardView<
   IListOrdersAdaptiveCardExtensionProps,
   IListOrdersAdaptiveCardExtensionState,
-  IQuickViewData
+  IListOrdersQuickViewData
 > {
-  public get data(): IQuickViewData {
+  public get data(): IListOrdersQuickViewData {
     return {
-      subTitle: strings.SubTitle,
-      title: strings.Title,
-      description: this.properties.description
+      title: strings.QuickViewTitle,
+      subTitle: strings.QuickViewSubTitle,
+      orders: this.state.orders
     };
   }
 
   public get template(): ISPFxAdaptiveCard {
-    return require('./template/QuickViewTemplate.json');
+    return require('./template/ListOrdersQuickViewTemplate.json');
   }
 }

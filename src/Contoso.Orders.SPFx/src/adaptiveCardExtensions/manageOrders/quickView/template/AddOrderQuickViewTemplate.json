@@ -1,0 +1,89 @@
+{
+  "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Order ID",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "id": "id",
+          "placeholder": "${orderIdPlaceholder}"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Customer ID",
+          "wrap": true
+        },
+        {
+          "type": "Input.Text",
+          "id": "customerId",
+          "placeholder": "${customerIdPlaceholder}"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Date",
+          "wrap": true
+        },
+        {
+          "type": "Input.Date",
+          "id": "date"
+        },
+        {
+          "type": "TextBlock",
+          "text": "Status",
+          "wrap": true
+        },
+        {
+          "type": "Input.ChoiceSet",
+          "id": "status",
+          "style": "compact",
+          "isMultiSelect": false,
+          "value": "Inserted",
+          "choices": [
+            {
+              "title": "Inserted",
+              "value": "Inserted"
+            },
+            {
+              "title": "Processing",
+              "value": "Processing"
+            },
+            {
+              "title": "Processed",
+              "value": "Processed"
+            },
+            {
+              "title": "Shipped",
+              "value": "Shipped"
+            },
+            {
+              "title": "Delivered",
+              "value": "Delivered"
+            },
+            {
+              "title": "Closed",
+              "value": "Closed"
+            },
+            {
+              "title": "Cancelled",
+              "value": "Cancelled"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "Insert Order"
+    }
+  ]
+}

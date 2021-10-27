@@ -17,8 +17,8 @@ export class ListOrdersPropertyPane {
                 PropertyPaneTextField('iconProperty', {
                   label: strings.IconPropertyFieldLabel
                 }),
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel,
+                PropertyPaneTextField('serviceBaseUrl', {
+                  label: strings.ServiceBaseUrlFieldLabel,
                   multiline: true
                 })
               ]

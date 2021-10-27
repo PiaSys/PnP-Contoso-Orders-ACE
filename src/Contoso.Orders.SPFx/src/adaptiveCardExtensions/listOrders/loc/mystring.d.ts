@@ -1,14 +1,15 @@
 declare interface IListOrdersAdaptiveCardExtensionStrings {
   PropertyPaneDescription: string;
   BasicGroupName: string;
-  DescriptionFieldLabel: string;
   TitleFieldLabel: string;
   IconPropertyFieldLabel: string;
-  Title: string;
-  SubTitle: string;
-  Description: string;
+  QuickViewTitle: string;
+  QuickViewSubTitle: string;
   PrimaryText: string;
   QuickViewButton: string;
+  ServiceBaseUrlFieldLabel: string;
+  LoadingMessage: string;
+  ConfigureMessage: string;
 }
 
 declare module 'ListOrdersAdaptiveCardExtensionStrings' {
