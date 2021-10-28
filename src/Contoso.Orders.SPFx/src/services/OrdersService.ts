@@ -75,20 +75,31 @@ export class OrdersService implements IOrdersService {
      */
     public async GetOrders(): Promise<Order[]> {
 
-        // Make the actual HTTP request
-        const httpResponse = await this.aadClient.get(
-            `${this.serviceBaseUrl}/api/orders`, 
-            AadHttpClient.configurations.v1);
+        try {
+            // Make the actual HTTP request
+            const httpResponse = await this.aadClient.get(
+                `${this.serviceBaseUrl}/api/orders`, 
+                AadHttpClient.configurations.v1);
 
-        if (httpResponse.status !== 200) {
-            throw new OrderServiceError(strings.ErrorRetrievingOrders);
+            if (httpResponse.status === 403) {
+                throw new OrderServiceError(strings.ErrorForbidden);
+            }
+            else if (httpResponse.status !== 200) {
+                throw new OrderServiceError(strings.ErrorRetrievingOrders);
+            }
+        
+            // Parse the JSON response
+            const result: Order[] = await httpResponse.json();
+
+            // Return the orders
+            return result;
+        } catch (error) {
+            if (error instanceof OrderServiceError) {
+                throw error;
+            } else {
+                throw new OrderServiceError(`${strings.ErrorRetrievingOrders}: ${error.message}`);
+            }
         }
-    
-        // Parse the JSON response
-        const result: Order[] = await httpResponse.json();
-
-        // Return the orders
-        return result;
     }
 
      /**
@@ -98,20 +109,31 @@ export class OrdersService implements IOrdersService {
       */
     public async GetOrder(id: string): Promise<Order> {
 
-        // Make the actual HTTP request
-        const httpResponse = await this.aadClient.get(
-            `${this.serviceBaseUrl}/api/orders/${id}`, 
-            AadHttpClient.configurations.v1);
+        try {
+            // Make the actual HTTP request
+            const httpResponse = await this.aadClient.get(
+                `${this.serviceBaseUrl}/api/orders/${id}`, 
+                AadHttpClient.configurations.v1);
 
-        if (httpResponse.status !== 200) {
-            throw new OrderServiceError(strings.ErrorRetrievingOrder);
+            if (httpResponse.status === 403) {
+                throw new OrderServiceError(strings.ErrorForbidden);
+            }
+            else if (httpResponse.status !== 200) {
+                throw new OrderServiceError(strings.ErrorRetrievingOrder);
+            }
+        
+            // Parse the JSON response
+            const result: Order = await httpResponse.json();
+
+            // Return the single order
+            return result;
+        } catch (error) {
+            if (error instanceof OrderServiceError) {
+                throw error;
+            } else {
+                throw new OrderServiceError(`${strings.ErrorRetrievingOrder}: ${error.message}`);
+            }
         }
-    
-        // Parse the JSON response
-        const result: Order = await httpResponse.json();
-
-        // Return the single order
-        return result;
     }
  
      /**
@@ -121,31 +143,42 @@ export class OrdersService implements IOrdersService {
       */
     public async AddOrder(order: Order): Promise<Order> {
 
-        // Define the HTTP request headers
-        const requestHeaders: Headers = new Headers();
-        requestHeaders.append('Content-type', 'application/json');
+        try {
+            // Define the HTTP request headers
+            const requestHeaders: Headers = new Headers();
+            requestHeaders.append('Content-type', 'application/json');
 
-        // Configure the request options
-        const httpOptions: IHttpClientOptions = {
-            body: JSON.stringify(order),
-            headers: requestHeaders
-        };
+            // Configure the request options
+            const httpOptions: IHttpClientOptions = {
+                body: JSON.stringify(order),
+                headers: requestHeaders
+            };
 
-        // Make the actual HTTP request
-        const httpResponse = await this.aadClient.post(
-            `${this.serviceBaseUrl}/api/orders`, 
-            AadHttpClient.configurations.v1,
-            httpOptions);
+            // Make the actual HTTP request
+            const httpResponse = await this.aadClient.post(
+                `${this.serviceBaseUrl}/api/orders`, 
+                AadHttpClient.configurations.v1,
+                httpOptions);
 
-        if (httpResponse.status !== 200) {
-            throw new OrderServiceError(strings.ErrorAddingOrder);
+            if (httpResponse.status === 403) {
+                throw new OrderServiceError(strings.ErrorForbidden);
+            }
+            else if (httpResponse.status !== 200) {
+                throw new OrderServiceError(strings.ErrorAddingOrder);
+            }
+
+            // Parse the JSON response
+            const result: Order = await httpResponse.json();
+
+            // Return the single order
+            return result;
+        } catch (error) {
+            if (error instanceof OrderServiceError) {
+                throw error;
+            } else {
+                throw new OrderServiceError(`${strings.ErrorAddingOrder}: ${error.message}`);
+            }
         }
-
-        // Parse the JSON response
-        const result: Order = await httpResponse.json();
-
-        // Return the single order
-        return result;
     }
  
      /**
@@ -155,32 +188,43 @@ export class OrdersService implements IOrdersService {
       */
     public async UpdateOrder(order: Order): Promise<Order> {
 
-        // Define the HTTP request headers
-        const requestHeaders: Headers = new Headers();
-        requestHeaders.append('Content-type', 'application/json');
+        try {
+            // Define the HTTP request headers
+            const requestHeaders: Headers = new Headers();
+            requestHeaders.append('Content-type', 'application/json');
 
-        // Configure the request options
-        const httpOptions: IHttpClientOptions = {
-            method: "PUT",
-            body: JSON.stringify(order),
-            headers: requestHeaders
-        };
+            // Configure the request options
+            const httpOptions: IHttpClientOptions = {
+                method: "PUT",
+                body: JSON.stringify(order),
+                headers: requestHeaders
+            };
 
-        // Make the actual HTTP request
-        const httpResponse = await this.aadClient.fetch(
-            `${this.serviceBaseUrl}/api/orders/${order.id}`, 
-            AadHttpClient.configurations.v1,
-            httpOptions);
+            // Make the actual HTTP request
+            const httpResponse = await this.aadClient.fetch(
+                `${this.serviceBaseUrl}/api/orders/${order.id}`, 
+                AadHttpClient.configurations.v1,
+                httpOptions);
 
-        if (httpResponse.status !== 200) {
-            throw new OrderServiceError(strings.ErrorUpdatingOrder);
+            if (httpResponse.status === 403) {
+                throw new OrderServiceError(strings.ErrorForbidden);
+            }
+            else if (httpResponse.status !== 200) {
+                throw new OrderServiceError(strings.ErrorUpdatingOrder);
+            }
+
+            // Parse the JSON response
+            const result: Order = await httpResponse.json();
+
+            // Return the single order
+            return result;
+        } catch (error) {
+            if (error instanceof OrderServiceError) {
+                throw error;
+            } else {
+                throw new OrderServiceError(`${strings.ErrorUpdatingOrder}: ${error.message}`);
+            }
         }
-
-        // Parse the JSON response
-        const result: Order = await httpResponse.json();
-
-        // Return the single order
-        return result;
     }
  
      /**
@@ -189,24 +233,35 @@ export class OrdersService implements IOrdersService {
       */
      public async DeleteOrder(id: string): Promise<void> {
 
-        // Define the HTTP request headers
-        const requestHeaders: Headers = new Headers();
-        requestHeaders.append('Content-type', 'application/json');
+        try {
+            // Define the HTTP request headers
+            const requestHeaders: Headers = new Headers();
+            requestHeaders.append('Content-type', 'application/json');
 
-        // Configure the request options
-        const httpOptions: IHttpClientOptions = {
-            method: "DELETE",
-            headers: requestHeaders
-        };
+            // Configure the request options
+            const httpOptions: IHttpClientOptions = {
+                method: "DELETE",
+                headers: requestHeaders
+            };
 
-        // Make the actual HTTP request
-        const httpResponse = await this.aadClient.fetch(
-            `${this.serviceBaseUrl}/api/orders/${id}`, 
-            AadHttpClient.configurations.v1,
-            httpOptions);
+            // Make the actual HTTP request
+            const httpResponse = await this.aadClient.fetch(
+                `${this.serviceBaseUrl}/api/orders/${id}`, 
+                AadHttpClient.configurations.v1,
+                httpOptions);
 
-        if (httpResponse.status !== 200) {
-            throw new OrderServiceError(strings.ErrorDeletingOrder);
+            if (httpResponse.status === 403) {
+                throw new OrderServiceError(strings.ErrorForbidden);
+            }
+            else if (httpResponse.status !== 200) {
+                throw new OrderServiceError(strings.ErrorDeletingOrder);
+            }
+        } catch (error) {
+            if (error instanceof OrderServiceError) {
+                throw error;
+            } else {
+                throw new OrderServiceError(`${strings.ErrorDeletingOrder}: ${error.message}`);
+            }
         }
      }
 }

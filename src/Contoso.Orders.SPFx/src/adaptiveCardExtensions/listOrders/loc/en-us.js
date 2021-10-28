@@ -6,7 +6,7 @@ define([], function() {
     "IconPropertyFieldLabel": "Card Icon",
     "QuickViewTitle": "Detailed Orders List",
     "QuickViewSubTitle": "Here is the detailed list of orders",
-    "PrimaryText": "Contoso Orders",
+    "PrimaryText": "Contoso List Orders",
     "QuickViewButton": "Show Orders",
     "ServiceBaseUrlFieldLabel": "OrderService Base Url",
     "LoadingMessage": "Loading orders ...",

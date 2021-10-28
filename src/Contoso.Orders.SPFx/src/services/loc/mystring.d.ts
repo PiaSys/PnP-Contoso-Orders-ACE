@@ -6,6 +6,7 @@ declare interface IOrderServiceStrings {
   ErrorAddingOrder: string;
   ErrorUpdatingOrder: string;
   ErrorDeletingOrder: string;
+  ErrorForbidden: string;
 }
 
 declare module 'OrderServiceStrings' {

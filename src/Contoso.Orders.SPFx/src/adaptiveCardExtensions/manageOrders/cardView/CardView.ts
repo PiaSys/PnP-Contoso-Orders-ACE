@@ -1,6 +1,6 @@
 import {
-  BaseBasicCardView,
-  IBasicCardParameters,
+  BasePrimaryTextCardView,
+  IPrimaryTextCardParameters,
   IExternalLinkCardAction,
   IQuickViewCardAction,
   ICardButton
@@ -13,7 +13,7 @@ import {
   LISTORDERS_QUICK_VIEW_REGISTRY_ID
 } from '../ManageOrdersAdaptiveCardExtension';
 
-export class CardView extends BaseBasicCardView<IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState> {
+export class CardView extends BasePrimaryTextCardView<IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState> {
   public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] | undefined {
     return [
       {
@@ -37,9 +37,10 @@ export class CardView extends BaseBasicCardView<IManageOrdersAdaptiveCardExtensi
     ];
   }
 
-  public get data(): IBasicCardParameters {
+  public get data(): IPrimaryTextCardParameters {
     return {
-      primaryText: strings.PrimaryText
+      primaryText: strings.PrimaryText,
+      description: this.state.description
     };
   }
 

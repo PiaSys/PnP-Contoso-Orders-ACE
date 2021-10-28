@@ -73,7 +73,8 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
       this.setState({
-        description: strings.ConfigureMessage
+        description: strings.ConfigureMessage,
+        orders: []
       });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
@@ -81,16 +82,28 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     }
     else
     {
-      // Create an instance of the OrderService
-      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
+      try {
 
-      // Use it to get the list of orders
-      const orders = await ordersService.GetOrders();
+        // Create an instance of the OrderService
+        const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      this.setState({
-        description: `There are ${orders.length} orders in the system`,
-        orders: orders
-      });
+        // Use it to get the list of orders
+        const orders = await ordersService.GetOrders();
+
+        this.setState({
+          description: `There are ${orders.length} orders in the system`,
+          orders: orders
+        });
+        
+      } catch (error) {
+
+        this.setState({
+          description: error.message,
+          orders: []
+        });
+
+        console.log(error);
+      }
     }
   }
 
@@ -100,7 +113,8 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
       this.setState({
-        description: strings.ConfigureMessage
+        description: strings.ConfigureMessage,
+        orders: []
       });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
@@ -110,19 +124,31 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     }
     else
     {
-      // Create an instance of the OrderService
-      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
+      try {
 
-      // Use it to get the list of orders
-      const addedOrder = await ordersService.AddOrder(order);
-      const orders = await ordersService.GetOrders();
+        // Create an instance of the OrderService
+        const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      this.setState({
-        description: `There are ${orders.length} orders in the system`,
-        orders: orders
-      });
+        // Use it to get the list of orders
+        const addedOrder = await ordersService.AddOrder(order);
+        const orders = await ordersService.GetOrders();
 
-      return addedOrder;
+        this.setState({
+          description: `There are ${orders.length} orders in the system`,
+          orders: orders
+        });
+
+        return addedOrder;
+
+      } catch (error) {
+
+        this.setState({
+          description: error.message,
+          orders: []
+        });
+
+        console.log(error);
+      }
     }
   }
 
@@ -132,7 +158,8 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
       this.setState({
-        description: strings.ConfigureMessage
+        description: strings.ConfigureMessage,
+        orders: []
       });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
@@ -142,19 +169,31 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     }
     else
     {
-      // Create an instance of the OrderService
-      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
+      try {
 
-      // Use it to get the list of orders
-      const updatedOrder = await ordersService.UpdateOrder(order);
-      const orders = await ordersService.GetOrders();
+        // Create an instance of the OrderService
+        const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      this.setState({
-        description: `There are ${orders.length} orders in the system`,
-        orders: orders
-      });
+        // Use it to get the list of orders
+        const updatedOrder = await ordersService.UpdateOrder(order);
+        const orders = await ordersService.GetOrders();
 
-      return updatedOrder;
+        this.setState({
+          description: `There are ${orders.length} orders in the system`,
+          orders: orders
+        });
+
+        return updatedOrder;
+
+      } catch (error) {
+
+        this.setState({
+          description: error.message,
+          orders: []
+        });
+
+        console.log(error);
+      }
     }
   }
 
@@ -164,7 +203,8 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
       this.setState({
-        description: strings.ConfigureMessage
+        description: strings.ConfigureMessage,
+        orders: []
       });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
@@ -172,17 +212,29 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
     }
     else
     {
-      // Create an instance of the OrderService
-      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
+      try {
 
-      // Use it to get the list of orders
-      await ordersService.DeleteOrder(id);
-      const orders = await ordersService.GetOrders();
+        // Create an instance of the OrderService
+        const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      this.setState({
-        description: `There are ${orders.length} orders in the system`,
-        orders: orders
-      });
+        // Use it to get the list of orders
+        await ordersService.DeleteOrder(id);
+        const orders = await ordersService.GetOrders();
+
+        this.setState({
+          description: `There are ${orders.length} orders in the system`,
+          orders: orders
+        });
+
+      } catch (error) {
+
+        this.setState({
+          description: error.message,
+          orders: []
+        });
+
+        console.log(error);
+      }
     }
   }
 
@@ -215,7 +267,7 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
   }
 
   protected async onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): Promise<void> {
-    if (propertyPath == 'serviceBaseUrl' && newValue != null && (<string>newValue).length > 0) {
+    if (propertyPath == 'serviceBaseUrl') {
       await this.loadOrders();
     }
   }

@@ -54,7 +54,8 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
     if (this.properties.serviceBaseUrl === undefined || this.properties.serviceBaseUrl.length == 0)
     {
       this.setState({
-        description: strings.ConfigureMessage
+        description: strings.ConfigureMessage,
+        orders: []
       });
       if (this.displayMode == DisplayMode.Edit) {
         this.context.propertyPane.open();
@@ -62,16 +63,28 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
     }
     else
     {
-      // Create an instance of the OrderService
-      const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
+      try {
 
-      // Use it to get the list of orders
-      const orders = await ordersService.GetOrders();
+        // Create an instance of the OrderService
+        const ordersService = new OrdersService(this.aadClient, this.properties.serviceBaseUrl);
 
-      this.setState({
-        description: `There are ${orders.length} orders in the system`,
-        orders: orders
-      });
+        // Use it to get the list of orders
+        const orders = await ordersService.GetOrders();
+
+        this.setState({
+          description: `There are ${orders.length} orders in the system`,
+          orders: orders
+        });
+
+      } catch (error) {
+
+        this.setState({
+          description: error.message,
+          orders: []
+        });
+
+        console.log(error);
+      }
     }
   }
 
@@ -104,7 +117,7 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
   }
 
   protected async onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): Promise<void> {
-    if (propertyPath == 'serviceBaseUrl' && newValue != null && (<string>newValue).length > 0) {
+    if (propertyPath == 'serviceBaseUrl') {
       await this.loadOrders();
     }
   }
