@@ -103,10 +103,9 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
     return this._deferredPropertyPane!.getPropertyPaneConfiguration();
   }
 
-  protected onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): void {
-    console.log(propertyPath);
-    console.log(oldValue);
-    console.log(newValue);
-    this.loadOrders();
+  protected async onPropertyPaneFieldChanged(propertyPath: string, oldValue: any, newValue: any): Promise<void> {
+    if (propertyPath == 'serviceBaseUrl' && newValue != null && (<string>newValue).length > 0) {
+      await this.loadOrders();
+    }
   }
 }
