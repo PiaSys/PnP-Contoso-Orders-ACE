@@ -10,17 +10,21 @@ import { IListOrdersAdaptiveCardExtensionProps, IListOrdersAdaptiveCardExtension
 
 export class CardView extends BasePrimaryTextCardView<IListOrdersAdaptiveCardExtensionProps, IListOrdersAdaptiveCardExtensionState> {
   public get cardButtons(): [ICardButton] | [ICardButton, ICardButton] | undefined {
-    return [
-      {
-        title: strings.QuickViewButton,
-        action: {
-          type: 'QuickView',
-          parameters: {
-            view: LISTORDERS_QUICK_VIEW_REGISTRY_ID
+    if (this.state.orders != null && this.state.orders.length > 0) {
+      return [
+        {
+          title: strings.QuickViewButton,
+          action: {
+            type: 'QuickView',
+            parameters: {
+              view: LISTORDERS_QUICK_VIEW_REGISTRY_ID
+            }
           }
         }
-      }
-    ];
+      ];
+    } else {
+      return undefined;
+    }
   }
 
   public get data(): IPrimaryTextCardParameters {
