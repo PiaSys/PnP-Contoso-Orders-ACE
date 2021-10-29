@@ -1,33 +1,38 @@
 {
-  "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "type": "AdaptiveCard",
-  "version": "1.2",
-  "body": [
-    {
-      "type": "TextBlock",
-      "weight": "Bolder",
-      "text": "${title}"
-    },
-    {
-      "type": "ColumnSet",
-      "columns": [
+    "schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "body": [
         {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "weight": "Bolder",
-              "text": "${subTitle}",
-              "wrap": true
-            }
-          ]
+            "type": "TextBlock",
+            "weight": "Bolder",
+            "text": "${title}"
+        },
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "text": "${description}",
+            "wrap": true
         }
-      ]
-    },
-    {
-      "type": "TextBlock",
-      "text": "${description}",
-      "wrap": true
-    }
-  ]
-}
+    ],
+    "actions": [
+        {
+            "type": "Action.Submit",
+            "id": "close",
+            "title": "Close"
+        }
+    ]
+  }

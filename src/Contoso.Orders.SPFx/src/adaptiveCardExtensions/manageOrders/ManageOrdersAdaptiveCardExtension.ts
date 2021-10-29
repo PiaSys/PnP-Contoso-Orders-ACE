@@ -27,6 +27,7 @@ export interface IManageOrdersAdaptiveCardExtensionProps {
 
 export interface IManageOrdersAdaptiveCardExtensionState {
   description: string;
+  error?: string;
   orders?: Order[];
 }
 
@@ -99,6 +100,7 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
 
         this.setState({
           description: error.message,
+          error: error.message,
           orders: []
         });
 
@@ -144,6 +146,7 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
 
         this.setState({
           description: error.message,
+          error: error.message,
           orders: []
         });
 
@@ -189,6 +192,7 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
 
         this.setState({
           description: error.message,
+          error: error.message,
           orders: []
         });
 
@@ -230,6 +234,7 @@ export default class ManageOrdersAdaptiveCardExtension extends BaseAdaptiveCardE
 
         this.setState({
           description: error.message,
+          error: error.message,
           orders: []
         });
 

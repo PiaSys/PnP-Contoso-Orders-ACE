@@ -15,6 +15,9 @@ define([], function() {
     "LoadingMessage": "Loading orders ...",
     "ConfigureMessage": "Please, configure the card ...",
     "OrderIdPlaceholder": "Provide the order ID",
-    "CustomerIdPlaceholder": "Provide the customer ID"
-    }
+    "CustomerIdPlaceholder": "Provide the customer ID",
+    "ErrorTitle": "Error Occured!",
+    "ConfirmTitle": "All good!",
+    "ConfirmDescription": "New order successfully inserted."
+  }
 });

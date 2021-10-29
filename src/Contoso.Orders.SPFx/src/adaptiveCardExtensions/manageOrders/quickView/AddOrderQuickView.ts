@@ -1,6 +1,11 @@
 import { ISPFxAdaptiveCard, BaseAdaptiveCardView, IActionArguments } from '@microsoft/sp-adaptive-card-extension-base';
 import * as strings from 'ManageOrdersAdaptiveCardExtensionStrings';
-import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState, CONFIRM_QUICK_VIEW_REGISTRY_ID } from '../ManageOrdersAdaptiveCardExtension';
+import { 
+  IManageOrdersAdaptiveCardExtensionProps, 
+  IManageOrdersAdaptiveCardExtensionState, 
+  CONFIRM_QUICK_VIEW_REGISTRY_ID,
+  ERROR_QUICK_VIEW_REGISTRY_ID
+} from '../ManageOrdersAdaptiveCardExtension';
 import { Order } from '../../../services/Order';
 
 export interface IAddOrderQuickViewData {
@@ -35,8 +40,13 @@ export class AddOrderQuickView extends BaseAdaptiveCardView<
       items: null
     };
   
-    this.properties.addOrder(order);
+    const newOrder = this.properties.addOrder(order);
+    
+    if (newOrder === undefined) {
+      this.quickViewNavigator.replace(ERROR_QUICK_VIEW_REGISTRY_ID);
+    } else {
+      this.quickViewNavigator.replace(CONFIRM_QUICK_VIEW_REGISTRY_ID);
+    }
 
-    this.quickViewNavigator.push(CONFIRM_QUICK_VIEW_REGISTRY_ID);
   }
 }

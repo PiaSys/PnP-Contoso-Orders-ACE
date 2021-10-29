@@ -15,6 +15,9 @@ declare interface IManageOrdersAdaptiveCardExtensionStrings {
   ConfigureMessage: string;
   OrderIdPlaceholder: string;
   CustomerIdPlaceholder: string;
+  ErrorTitle: string;
+  ConfirmTitle: string;
+  ConfirmDescription: string;
 }
 
 declare module 'ManageOrdersAdaptiveCardExtensionStrings' {

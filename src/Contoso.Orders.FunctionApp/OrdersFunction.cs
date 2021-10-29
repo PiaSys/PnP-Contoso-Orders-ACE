@@ -33,6 +33,31 @@ namespace Contoso.Orders.FunctionApp
         /// <param name="req">The request</param>
         /// <param name="log">The logging interface</param>
         /// <returns>The list of orders</returns>
+        [FunctionName("GrantPermissions")]
+        public IActionResult GrantPermissions(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "grant")] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation($"GrantPermissions invoked.");
+
+            string tenantName = req.Query.ContainsKey("state") ? req.Query["state"].ToString() : null;
+            if (!string.IsNullOrEmpty(tenantName))
+            {
+                var apiAccessUrl = $"https://{tenantName}-admin.sharepoint.com/_layouts/15/online/AdminHome.aspx#/webApiPermissionManagement";
+                return new RedirectResult(apiAccessUrl);
+            }
+            else
+            {
+                return new BadRequestResult();
+            }
+        }
+
+        /// <summary>
+        /// Provides the list of orders
+        /// </summary>
+        /// <param name="req">The request</param>
+        /// <param name="log">The logging interface</param>
+        /// <returns>The list of orders</returns>
         [FunctionAuthorize(Scopes = "Orders.Read,Orders.FullControl")]
         [FunctionName("GetOrders")]
         public IActionResult GetOrders(

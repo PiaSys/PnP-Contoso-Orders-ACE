@@ -1,9 +1,8 @@
-import { ISPFxAdaptiveCard, BaseAdaptiveCardView } from '@microsoft/sp-adaptive-card-extension-base';
+import { ISPFxAdaptiveCard, BaseAdaptiveCardView, IActionArguments } from '@microsoft/sp-adaptive-card-extension-base';
 import * as strings from 'ManageOrdersAdaptiveCardExtensionStrings';
 import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExtensionState } from '../ManageOrdersAdaptiveCardExtension';
 
 export interface IErrorQuickViewData {
-  subTitle: string;
   title: string;
   description: string;
 }
@@ -15,13 +14,18 @@ export class ErrorQuickView extends BaseAdaptiveCardView<
 > {
   public get data(): IErrorQuickViewData {
     return {
-      subTitle: strings.SubTitle,
-      title: strings.Title,
-      description: this.state.description
+      title: strings.ErrorTitle,
+      description: this.state.error
     };
   }
 
   public get template(): ISPFxAdaptiveCard {
     return require('./template/ErrorQuickViewTemplate.json');
+  }
+
+  public onAction(action: IActionArguments): void {
+    if (action.id == "close") {
+        this.quickViewNavigator.pop();
+    }
   }
 }
