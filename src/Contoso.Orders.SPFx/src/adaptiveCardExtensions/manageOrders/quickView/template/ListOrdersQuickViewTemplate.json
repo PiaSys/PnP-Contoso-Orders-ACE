@@ -121,13 +121,13 @@
                 {
                   "type": "Image",
                   "id": "chevronDown${$index}",
-                  "url": "https://adaptivecards.io/content/down.png",
+                  "url": "https://raw.githubusercontent.com/PiaSys/PnP-Contoso-Orders-ACE/main/assets/down.png",
                   "width": "20px"
                 },
                 {
                   "type": "Image",
                   "id": "chevronUp${$index}",
-                  "url": "https://adaptivecards.io/content/up.png",
+                  "url": "https://raw.githubusercontent.com/PiaSys/PnP-Contoso-Orders-ACE/main/assets/up.png",
                   "width": "20px",
                   "isVisible": false
                 }

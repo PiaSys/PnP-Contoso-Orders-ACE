@@ -25,7 +25,7 @@ export class ConfirmQuickView extends BaseAdaptiveCardView<
 
   public onAction(action: IActionArguments): void {
     if (action.id == "close") {
-        this.quickViewNavigator.pop();
+        this.quickViewNavigator.close();
     }
   }
 }
