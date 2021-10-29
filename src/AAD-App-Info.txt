@@ -25,3 +25,6 @@ https://login.microsoftonline.com/common/adminconsent?client_id=a47390a4-f0cb-42
 
 .\Register-PnPContosoOrders.ps1 -TenantName piasys1 -Credentials $credentials
 
+
+https://pnp-contoso-orders-dev.azurewebsites.net/
+https://pnp-contoso-orders.azurewebsites.net/

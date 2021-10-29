@@ -7,6 +7,8 @@ export interface IListOrdersQuickViewData {
   subTitle: string;
   title: string;
   orders: Order[];
+  imageUpUrl: string;
+  imageDownUrl: string;
 }
 
 export class ListOrdersQuickView extends BaseAdaptiveCardView<
@@ -18,7 +20,9 @@ export class ListOrdersQuickView extends BaseAdaptiveCardView<
     return {
       subTitle: strings.SubTitle,
       title: strings.Title,
-      orders: this.state.orders
+      orders: this.state.orders,
+      imageUpUrl:  require('../assets/up.png'),
+      imageDownUrl:  require('../assets/down.png')
     };
   }
 

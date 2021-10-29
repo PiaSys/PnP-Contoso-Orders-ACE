@@ -16,7 +16,7 @@
                     "items": [
                         {
                             "type": "Image",
-                            "url": "https://raw.githubusercontent.com/PiaSys/PnP-Contoso-Orders-ACE/main/assets/error.png"
+                            "url": "${imageUrl}"
                         }
                     ]
                 }

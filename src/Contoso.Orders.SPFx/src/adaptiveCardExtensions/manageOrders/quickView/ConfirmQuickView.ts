@@ -5,6 +5,7 @@ import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExten
 export interface IConfirmQuickViewData {
   title: string;
   description: string;
+  imageUrl: string;
 }
 
 export class ConfirmQuickView extends BaseAdaptiveCardView<
@@ -15,7 +16,8 @@ export class ConfirmQuickView extends BaseAdaptiveCardView<
   public get data(): IConfirmQuickViewData {
     return {
       title: strings.ConfirmTitle,
-      description: strings.ConfirmDescription
+      description: strings.ConfirmDescription,
+      imageUrl: require('../assets/success.png')
     };
   }
 

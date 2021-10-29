@@ -5,6 +5,7 @@ import { IManageOrdersAdaptiveCardExtensionProps, IManageOrdersAdaptiveCardExten
 export interface IErrorQuickViewData {
   title: string;
   description: string;
+  imageUrl: string;
 }
 
 export class ErrorQuickView extends BaseAdaptiveCardView<
@@ -15,7 +16,8 @@ export class ErrorQuickView extends BaseAdaptiveCardView<
   public get data(): IErrorQuickViewData {
     return {
       title: strings.ErrorTitle,
-      description: this.state.error
+      description: this.state.error,
+      imageUrl: require('../assets/error.png')
     };
   }
 
