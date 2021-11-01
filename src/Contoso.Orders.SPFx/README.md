@@ -77,7 +77,7 @@ Once you have done that, open the browser and access your target tenant. Browse 
 - ListOrders
 - ManageOrders
 
-!(ACEs in Add Web Part UI)[../../assets/Contoso-Orders-ACEs-Add-Workbench.png]
+![ACEs in Add Web Part UI](../../assets/Contoso-Orders-ACEs-Add-Workbench.png)
 
 Configure the ACEs, via the property pane panel on the right side of the screen, in order to use for "OrderService Base Url" the followin value:
 
