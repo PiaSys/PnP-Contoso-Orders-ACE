@@ -2,9 +2,9 @@
 
 - Clone this repository
 - Ensure that you are at the solution folder
-- Open a PowerShell terminal and move into the [Scripts](./src/Scripts) folder
+- Open a PowerShell terminal and move into the [Scripts](../src/Scripts) folder
 - Execute the following PowerShell script:
-  - [Register-PnPContosoOrders.ps1](./src/Scripts/Register-PnPContosoOrders.ps1) with the following syntax
+  - [Register-PnPContosoOrders.ps1](../src/Scripts/Register-PnPContosoOrders.ps1) with the following syntax
 
 ```PowerShell
 .\Register-PnPContosoOrders.ps1 -TenantName [name-of-target-tenant]
@@ -35,7 +35,7 @@ Once you have done that, open the browser and access your target tenant. Browse 
 - ListOrders
 - ManageOrders
 
-![ACEs in Add Web Part UI](./assets/Contoso-Orders-ACEs-Add-Workbench.png)
+![ACEs in Add Web Part UI](../assets/Contoso-Orders-ACEs-Add-Workbench.png)
 
 Configure the ACEs, via the property pane panel on the right side of the screen, in order to use for "OrderService Base Url" the followin value:
 
