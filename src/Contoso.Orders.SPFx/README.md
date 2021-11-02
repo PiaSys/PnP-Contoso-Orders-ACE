@@ -41,7 +41,8 @@ Version|Date|Comments
 
 ---
 
-@@include[MinimalPathToAwesome.md](../../docs/MinimalPathToAwesome.md)
+## Minimal Path to Awesome
+Follow [this link](../../docs/MinimalPathToAwesome.md) learn how to deploy this sample solution.
 
 ## Features
 
