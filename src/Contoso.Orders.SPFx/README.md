@@ -1,4 +1,4 @@
-# Contoso Orders - Demo ACE Scenario
+# Contoso Orders - Demo ACEs Scenario
 
 ## Summary
 
@@ -45,8 +45,9 @@ Version|Date|Comments
 
 - Clone this repository
 - Ensure that you are at the solution folder
+- Open a PowerShell terminal and move into the [Scripts](../Scripts) folder
 - Execute the following PowerShell script:
-  - [Register-PnPContosoOrders.ps1](..\Scripts\Register-PnPContosoOrders.ps1) with the following syntax
+  - [Register-PnPContosoOrders.ps1](../Scripts/Register-PnPContosoOrders.ps1) with the following syntax
 
 ```PowerShell
 .\Register-PnPContosoOrders.ps1 -TenantName [name-of-target-tenant]
