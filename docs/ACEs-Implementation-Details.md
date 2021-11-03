@@ -933,3 +933,14 @@ Just for the sake of completeness, the [AddOrderQuickView.ts](../src/Contoso.Ord
 
 Notice how easy it is to define a form with fields and labels, configuring required fields, defining validation exception messages, etc. At the very end, from a developer point of view you simply need to define the Adaptive Card JSON template and you can skip developing complex input validation rules, and you can rather simply benefit of the out of the box functionalities of Adaptive Cards.
 The **onAction** method of the **AddOrderQuickView** type takes care of inserting the new order and then uses the **quickViewNavigator** property to replace the current QuickView with either the **ConfirmQuickView** or the **ErrorQuickView** depending on the outcome of the operation.
+
+## Wrap up
+You have seen how easy and simple it is to define an ACE with SPFx. You can find further details here:
+- [Overview of Viva Connections Extensibility](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/overview-viva-connections)
+- [Build your first SharePoint Adaptive Card Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/build-first-sharepoint-adaptive-card-extension)
+- [Advanced Card View Functionality](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/advanced-card-view-functionality)
+- [Advanced Quick View Functionality](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/advanced-quick-view-functionality)
+- [Adaptive Card Extensions and Teams Apps](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/adaptive-card-extensions-and-teams)
+- [Adaptive Cards](https://adaptivecards.io/)
+
+And if you like, you can now move to the development of the back-end API, reading the [following document](APIs-Implementation-Details.md).
