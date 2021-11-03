@@ -141,9 +141,9 @@ Internally the **AadHttpClient** instance takes care of all the complexity of re
 
 Notice the **webApiPermissionRequests** section, where we define that we need the **Orders.FullControl** permission scope for the resource **PnP.Contoso.Orders**, which represents the app registered in AAD for the backend API. 
 
-> Note: you can find further details about how to register the backend API in ADD reading the document about the [backend APIs](./APIs-Implementation-Details.md). You can also find additional information about how to use AadHttpClient in SPFx by reading the document [Connect to Azure AD-secured APIs in SharePoint Framework solutions](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient).
+> Note: you can find further details about how to register the backend API in AAD reading the document about the [backend APIs](./APIs-Implementation-Details.md). You can also find additional information about how to use **AadHttpClient** in SPFx by reading the document [Connect to Azure AD-secured APIs in SharePoint Framework solutions](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient).
 
-For the sake of completeness, the sample defines also a set of localized strings for the service, in the loc sub-folder of the services folder. In order to properly support localized strings defined in such a way, you also need to add an item to the localizedResources section of the [config.json](../src/Contoso.Orders.SPFx/config/config.json) file.
+For the sake of completeness, the sample defines also a set of localized strings for the service, in the loc sub-folder of the services folder. In order to properly support localized strings defined in such a way, you also need to add an item to the localizedResources section of the [config.json](../src/Contoso.Orders.SPFx/config/config.json#L26) file.
 
 ```JSON
   "localizedResources": {
@@ -180,7 +180,7 @@ export default class ListOrdersAdaptiveCardExtension extends BaseAdaptiveCardExt
 ```
 
 Notice the **orders** property defined in the state, and which will hold the whole list of orders to use them in the UI binding. 
-In the **onInit** method of the ACE there is some logic to setup the initial state of the component, to register the CardViews and the QuickViews of the ACE, and to create a new instance of the **AadHttpClient** type, which will then be used to create an instance of the OrderService.
+In the **onInit** method of the ACE there is some logic to setup the initial state of the component, to register the CardViews and the QuickViews of the ACE, and to create a new instance of the **AadHttpClient** type, which will then be used to create an instance of the OrderService class.
 Notice also the **setTimeout** JavaScript method invokation, to trigger an asynchronous load of all the orders. You could eventually load the orders within the **onInit** method, instead of using an asynchronous method via **setTimeout** but in case of any delay in loading orders, the ACE would be "stuck" in the UI. That's why in the sample we rather load orders asynchronously.
 
 ```TypeScript
@@ -469,7 +469,7 @@ Then all the magic happens in the [ListOrdersQuickViewTemplate.json](../src/Cont
 ```
 
 The **Title** and **SubTitle** are rendered via the Adaptive Card databinding syntax **${title}** and **${subTitle}**. Then the collection of orders is rendered configuring **"$data": "${orders}"** in the Container defined in the card definition. For each order item in the **orders** collection, the JSON renders a set of properties via databinding.
-Notice the logic inside the Adaptive Card to handle the different values of the **status** property of each order in order to define the color for the status string.
+Notice the logic inside the Adaptive Card to handle the different values of the **status** property of each order item to define the color for the status string.
 
 ### ManageOrders
 The ManageOrders ACE internally works almost the same as the ListOrders one. For example, the CardView still shows a message about the number of orders defined in the system. However, there are two buttons in the CardView (when it is configured to show in *Large* mode): one to show orders ad another one to add a new order.
