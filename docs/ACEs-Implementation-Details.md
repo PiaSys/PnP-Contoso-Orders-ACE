@@ -932,4 +932,4 @@ Just for the sake of completeness, the [AddOrderQuickView.ts](../src/Contoso.Ord
 ```
 
 Notice how easy it is to define a form with fields and labels, configuring required fields, defining validation exception messages, etc. At the very end, from a developer point of view you simply need to define the Adaptive Card JSON template and you can skip developing complex input validation rules, and you can rather simply benefit of the out of the box functionalities of Adaptive Cards.
-The **onAction** method of the AddOrderQuickView type takes care of inserting the new order and then uses the **quickViewNavigator** property to replace the current QuickView with either the ConfirmQuickView or the ErrorQuickView depending on the outcome of the operation.
+The **onAction** method of the **AddOrderQuickView** type takes care of inserting the new order and then uses the **quickViewNavigator** property to replace the current QuickView with either the **ConfirmQuickView** or the **ErrorQuickView** depending on the outcome of the operation.
