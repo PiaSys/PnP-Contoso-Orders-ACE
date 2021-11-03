@@ -472,7 +472,7 @@ The **Title** and **SubTitle** are rendered via the Adaptive Card databinding sy
 Notice the logic inside the Adaptive Card to handle the different values of the **status** property of each order item to define the color for the status string.
 
 ### ManageOrders
-The ManageOrders ACE internally works almost the same as the ListOrders one. For example, the CardView still shows a message about the number of orders defined in the system. However, there are two buttons in the CardView (when it is configured to show in *Large* mode): one to show orders ad another one to add a new order.
+The ManageOrders ACE internally works almost the same as the ListOrders one. For example, the CardView still shows a message about the number of orders defined in the system. However, there are two buttons in the CardView (when it is configured to render in *Large* mode): one to show orders ad another one to add a new order.
 
 ![Manage Orders CardView](../assets/Contoso-Manage-Orders-CardView.png)
 
@@ -629,7 +629,7 @@ The **IListOrdersQuickViewData** type defines properties to hold the source of d
 
 ![Manage Orders Quick View](../assets/Contoso-Manage-Orders-QuickView-List.png)
 
-It interesting to notice the **onAction** method, which handles the post-back of the QuickView UI when the users click on any of the action buttons in the Adaptive Card UI. Let's have a look at the Adaptive Card definition in the [ListOrdersQuickViewTemplate.json](../src/Contoso.Orders.SPFx/src/adaptiveCardExtensions/manageOrders/quickView/template/ListOrdersQuickViewTemplate.json) file, to better understand how the binding and the editing work.
+It interesting to notice the **onAction** method, which handles the post-back of the QuickView UI when the users click on any of the action buttons in the Adaptive Card UI. Let's have a look at the Adaptive Card definition in the [ListOrdersQuickViewTemplate.json](../src/Contoso.Orders.SPFx/src/adaptiveCardExtensions/manageOrders/quickView/template/ListOrdersQuickViewTemplate.json) file, to better understand how the databinding and the editing work.
 
 ```JSON
 {
@@ -843,7 +843,7 @@ It interesting to notice the **onAction** method, which handles the post-back of
 }
 ```
 
-The databinding works almost like in the ListOrders ACE. However, there is the **Action.ToggleVisibility** that in conjuction with the **isVisible** property of some of the items, allows to nicely play with the dynamic UI of the list of orders. When a user clicks on the chevron down, the **Action.ToggleVisibility** will hide the chevron down, show the chevron up, and show an item of type **Container** that includes the editing UI for the selected order. The **ActionSet** in the **Container** will trigger a post-back to the QuickView code and will target the **onAction** method that we just saw. Internally that method will update or delete the current item based on the action clicked by the user.
+The databinding works almost like in the ListOrders ACE. However, there is the **Action.ToggleVisibility** item that in conjuction with the **isVisible** property of some of the items, allows to nicely play with the dynamic UI of the list of orders. When a user clicks on the chevron down, the **Action.ToggleVisibility** will hide the chevron down, show the chevron up, and show an item of type **Container** that includes the editing UI for the selected order. The **ActionSet** in the **Container** will trigger a post-back to the QuickView code and will target the **onAction** method that we just saw. Internally that method will update or delete the current item based on the action clicked by the user.
 
 Just for the sake of completeness, the [AddOrderQuickView.ts](../src/Contoso.Orders.SPFx/src/adaptiveCardExtensions/manageOrders/quickView/AddOrderQuickView.ts) QuickView relies on a full edit form experience, defined in the following Adaptive Card JSON template.
 
