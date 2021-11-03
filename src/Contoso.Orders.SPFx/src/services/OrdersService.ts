@@ -13,7 +13,7 @@ import * as strings from 'OrderServiceStrings';
 }
 
 /**
- * Define the abstract inteface for the Orders Service
+ * Defines the abstract interface for the Orders Service
  */
 export interface IOrdersService {
 

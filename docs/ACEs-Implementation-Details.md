@@ -12,7 +12,7 @@ The service provides all the basic CRUDQ (Create, Read, Update, Delete, Query) f
 
 ```TypeScript
 /**
- * Define the abstract inteface for the Orders Service
+ * Defines the abstract interface for the Orders Service
  */
 export interface IOrdersService {
 
@@ -141,7 +141,7 @@ Internally the **AadHttpClient** instance takes care of all the complexity of re
 
 Notice the **webApiPermissionRequests** section, where we define that we need the **Orders.FullControl** permission scope for the resource **PnP.Contoso.Orders**, which represents the app registered in AAD for the backend API. 
 
-> Note: you can find further details about how to register the backend API in ADD reading the document about the [backend APIs](./APIs-Implementation-Details.md).
+> Note: you can find further details about how to register the backend API in ADD reading the document about the [backend APIs](./APIs-Implementation-Details.md). You can also find additional information about how to use AadHttpClient in SPFx by reading the document [Connect to Azure AD-secured APIs in SharePoint Framework solutions](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/use-aadhttpclient).
 
 For the sake of completeness, the sample defines also a set of localized strings for the service, in the loc sub-folder of the services folder. In order to properly support localized strings defined in such a way, you also need to add an item to the localizedResources section of the [config.json](../src/Contoso.Orders.SPFx/config/config.json) file.
 
