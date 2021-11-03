@@ -107,7 +107,7 @@ Internally, the service relies on the provided **AadHttpClient** instance to inv
     }
 ```
 
-Internally the **AadHttpClient** instance takes care of all the complexity of retrieving a valid OAuth 2.0 Access Token to consume the backend API. In order to being able to consume the target API from SPFx, securing the communication with OAuth 2.0 and Azure Active Directory (AAD), you need to configure in the [package-solution.json](../src/Contoso.Orders.SPFx/config/package-solution.json) the permission requests needed by SPFx. Here you can see the content of the package-solution.json file.
+Internally the **AadHttpClient** instance takes care of all the complexity of retrieving a valid OAuth 2.0 Access Token to consume the backend API. In order to being able to consume the target API from SPFx, securing the communication with OAuth 2.0 and Azure Active Directory (AAD), you need to configure in the [package-solution.json](../src/Contoso.Orders.SPFx/config/package-solution.json#L17) the permission requests needed by SPFx. Here you can see the content of the package-solution.json file.
 
 ```JSON
 {
