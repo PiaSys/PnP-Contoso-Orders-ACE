@@ -6,7 +6,7 @@ In the following picture you can see the outline of the solution in Visual Studi
 ![SPFx solution outline](../assets/Contoso-Orders-SPFx-Outline.png)
 
 ## OrdersService
-From an implementation point of view, both the ACEs (ListOrders and ManageOrders) rely on a service called **OrdersService** and defined in file [OrderService.ts](../src/Contoso.Orders.SPFx/src/services/OrderService.ts) under the services folder.
+From an implementation point of view, both the ACEs (ListOrders and ManageOrders) rely on a service called **OrdersService** and defined in file [OrderService.ts](../src/Contoso.Orders.SPFx/src/services/OrdersService.ts) under the services folder.
 
 The service provides all the basic CRUDQ (Create, Read, Update, Delete, Query) functionalities and is supported by the [backend APIs](./APIs-Implementation-Details.md). In the following code excerpt you can see the interface implemented by the service.
 
