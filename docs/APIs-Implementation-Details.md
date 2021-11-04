@@ -420,6 +420,6 @@ Then, using the ***Microsoft.Identity.Web*** library, invokes the **Authenticate
 
 ## <a name="">Function App Hosting</a>
 We are now ready to host the Function App on Microsoft Azure. From Visual Studio you can publish the solution targeting a new or an already existing Function App.
-Once the app is published, remember to configure the settings accordingly to what is described in previous section <a href="#authN">**Authentication**</a>.
+Once the app is published, remember to configure the settings accordingly to what is described in previous section <a href="#AADSettings">**Authentication**</a>.
 
 > Important: Being the fact that the AAD app is configured for multi-tenant and the Functions authenticate and authorize requests with a custom logic, you don't need to configure any authentication provider in the Function App. Actually, you can completely skip the EasyAuth configuration flow of the Azure Function App.
