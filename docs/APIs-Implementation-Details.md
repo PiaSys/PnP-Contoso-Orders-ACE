@@ -162,7 +162,7 @@ You also need to configure the API app (the Function App in this scenario) with 
 ```
 
 Notice the configuration values with trailing **AzureAd:**. They define the main settings about the AAD app registered in the previous section:
-- AzureAd:Instance : this is always https://login.microsoftonline.com/ unless you are in scenarios like Governement, China where the AAD endpoint can vary.
+- AzureAd:Instance : this is always https://login.microsoftonline.com/ unless you are in scenarios like Government, China, etc. where the AAD endpoint can vary.
 - AzureAd:TenantId : this is the **Tenant ID** of the tenant where you registered the multi-tenant app (the one we called *main* tenant).
 - AzureAd:ClientId : this is the **Client ID** of the registered app. 
 - AzureAd:Audience : this is the **Application ID URI** that you defined while registering the permission scopes for the app.
@@ -173,7 +173,7 @@ In the configuration settings of the Function App on Microsoft Azure, you will h
 
 ## Functions implementation and authorization
 All the functions are defined in a unique file called [OrdersFunction.cs](../src/Contoso.Orders.FunctionApp/OrdersFunction.cs).
-In the class there is some plumbing code, which we will not describe, to generate and manage the random list of orders for every user consuming the APIs based on the user unique ID. Then, there are methods (i.e. functions) that map 1 to 1 to the APIs exposed. For example, let's have a look at the function to retrieve the whole list of orders (**GetOrders**).
+In the class there is some plumbing code, which we will not describe, to generate and manage the random list of orders for every user consuming the APIs based on the user's unique ID. Then, there are methods (i.e. functions) that map 1 to 1 to the APIs exposed. For example, let's have a look at the function to retrieve the whole list of orders (**GetOrders**).
 
 ```csharp
 /// <summary>
@@ -197,7 +197,7 @@ public IActionResult GetOrders(
 }
 ```
 
-Notice the **FunctionAuthorize** attribute, which is a custom one that we will dig into soon. The attribute defines that, in order to being able to invoke the API, the access token of the calling user has to have either the *Orders.Read* permission scope, or the *Orders.FullControl* permission scope. Notice also that the function is configured with an **AuthorizationLevel.Anonymous**, meaning that the authorization will be handled by our custom logic, rather then using the Function App authorization infrastructure. The internal implementation of the method is trivial.
+Notice the **FunctionAuthorize** attribute, which is a custom one that we will dig into soon. The attribute defines that, in order to being able to invoke the API, the access token of the calling user has to have either the *Orders.Read* permission scope, or the *Orders.FullControl* permission scope. Notice also that the function is configured with an **AuthorizationLevel.Anonymous**, meaning that the authorization will be handled by our custom logic, rather than using the Function App authorization infrastructure. The internal implementation of the method is trivial.
 
 The **UpdateOrder** method will require at least the *Orders.FullControl* permission scope.
 
@@ -269,8 +269,8 @@ public IActionResult GrantPermissions(
 
 Internally, this last function simply relies on a *state* querystring argument, which is supposed to represent the name of the target tenant where the app is going to be registered. The function dinamically generates a URL to the **API Access** page of the SharePoint Online Admin Center. The URL of this function will be used as the Return URL in the AAD app registration. It is the function backing the API available at the URL https://[function-app-name].azurewebsites.net/api/grant, where [function-app-name] is the name that you will use for hosting the Function App on Microsoft Azure.
 
-### FunctionAuthorize
-The attribute FunctionAuthorize is defines in class [FunctionAuthorizeAttribute.cs](../src/Contoso.Orders.FunctionApp/FunctionAuthorizeAttribute.cs). Internally the class leverages the preview feature of the Function Filters. In fact, the attribute inherits from **FunctionInvocationFilterAttribute** and implements a custom logic by overriding the **OnExecutingAsync** method of the base class. You can see the actual implementation in the following code excerpt.
+### FunctionAuthorizeAttribute
+The attribute **FunctionAuthorize** is defined in class [FunctionAuthorizeAttribute.cs](../src/Contoso.Orders.FunctionApp/FunctionAuthorizeAttribute.cs). Internally the class leverages the preview feature of the Function Filters. In fact, the attribute inherits from **FunctionInvocationFilterAttribute** and implements a custom logic by overriding the **OnExecutingAsync** method of the base class. You can see the actual implementation in the following code excerpt.
 
 ```csharp
 using Microsoft.AspNetCore.Http;
