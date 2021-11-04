@@ -2,7 +2,7 @@
 The API for this solution is registered in Azure Active Directory (AAD) as a multi-tenant app, and is secured using OAuth 2.0 and custom permission scopes. In this document you will learn how to configure the solution, so that you can do it yourself for any other custom solution that you will develop.
  
 ## Azure Active Directory app registration
-First of all, you need to register a multi-tenant app in Azure Active Directory (AAD) in order to being able to validate users' requests. Choose a tenant that you want to use as the *master* tenant for your app registration. This will be the tenant where you will register and maintain the app settings for all the tenants. 
+First of all, you need to register a multi-tenant app in Azure Active Directory (AAD) in order to being able to validate users' requests. Choose a tenant that you want to use as the *main* tenant for your app registration. This will be the tenant where you will register and maintain the app settings for all the tenants. 
 
 > Note: you should choose a tenant that is authoritative for your company and you should consider configuring the app as Publisher Verified by following the instructions provided in this [document](https://docs.microsoft.com/en-us/azure/active-directory/develop/publisher-verification-overview). 
 
@@ -161,7 +161,7 @@ You also need to configure the API app (the Function App in this scenario) with 
 
 Notice the configuration values with trailing **AzureAd:**. They define the main settings about the AAD app registered in the previous section:
 - AzureAd:Instance : this is always https://login.microsoftonline.com/ unless you are in scenarios like Governement, China where the AAD endpoint can vary.
-- AzureAd:TenantId : this is the **Tenant ID** of the tenant where you registered the multi-tenant app (the one we called *master* tenant).
+- AzureAd:TenantId : this is the **Tenant ID** of the tenant where you registered the multi-tenant app (the one we called *main* tenant).
 - AzureAd:ClientId : this is the **Client ID** of the registered app. 
 - AzureAd:Audience : this is the **Application ID URI** that you defined while registering the permission scopes for the app.
 
