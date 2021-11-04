@@ -73,7 +73,7 @@ Moreover, the Function App is configured to use Dependency Injection. As such, t
 - Microsoft.Azure.WebJobs.Extensions.Storage
 - Microsoft.Bcl.AsyncInterfaces
 
-<a name="authN">### Authentication</a>
+### <a name="authN">Authentication</a>
 The [Startup.cs](../src/Contoso.Orders.FunctionApp/Startup.cs) file defines the authentication rules.
 
 ```csharp
