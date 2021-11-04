@@ -19,9 +19,11 @@ Then choose **+ New Registration** to start registering a new app in AAD.
 ![AAD in Azure Portal](../assets/Azure-Portal-AAD-App-Registrations-New-Registration.png)
 
 You will have to provide the basic settings for a new app, including:
-- Name: it is the name of the app. In our sample scenario we're using PnP.Contoso.Orders and it is the name also referenced in the [package-solution.json](../src/Contoso.Orders.SPFx/config/package-solution.json#L19) file of the SPFx solution.
+- Name: it is the name of the app. In our sample scenario we're using **PnP.Contoso.Orders** and it is the name also referenced in the [package-solution.json](../src/Contoso.Orders.SPFx/config/package-solution.json#L19) file of the SPFx solution.
 - Supported account types: in order to register a multi-tenant app, you should choose *"Accounts in any organizational directory (Any Azure AD directory - Multitenant)"*
 - Redirect URI: you can leave this item blank and configure it later, or you can already configure it with the URL https://[function-app-name].azurewebsites.net/api/grant, where [function-app-name] is the name that you will use for hosting the Function App on Microsoft Azure.
+
+> Note: The URL https://[function-app-name].azurewebsites.net/api/grant is a custom one, that corresponds to a function offered by the PnP Contoso Orders sample solution. If you are implementing an API of your own, the URL could be different.
 
 Click on the **Register** button and wait few seconds.
 
