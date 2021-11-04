@@ -52,7 +52,7 @@ It is up to you to define a name, a display name, and a description for the perm
 
 ![AAD in Azure Portal](../assets/Azure-Portal-AAD-App-Scope-definition.png)
 
-The **Admins only** option means that only Tenant Global Admins will be allowed to register and consent access to the multi-tenant app in their tenant. The **Admins and users** options means that the multi-tenant app can be registered tenant-wide by Tenant Global Admins, or can be registered for personal use per end users. 
+The **Admins only** option means that only Tenant Global Admins will be allowed to register and consent access to the multi-tenant app in their tenant. The **Admins and users** options means that the multi-tenant app can be registered tenant-wide by Tenant Global Admins, or can be registered for personal use by end users. 
 
 > Important: Starting in November 2020, end-users will no longer be able to grant consent to most newly registered multi-tenant apps without verified publishers if risk-based step-up consent is enabled. This will apply to apps that are registered after November 8th 2020, use OAuth2.0 to request permissions beyond basic sign-in and read user profile, and request consent from users in different tenants than the one the app is registered in. A warning will be displayed on the consent screen informing users that these apps are risky and are from unverified publishers. You can find additional information in this [document](https://docs.microsoft.com/en-us/azure/active-directory/develop/publisher-verification-overview).
 
