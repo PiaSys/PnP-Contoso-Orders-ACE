@@ -1,4 +1,4 @@
-## Minimal Path to Awesome
+## <a name="PathToAwesome">Minimal Path to Awesome</a>
 
 - Clone this repository
 - Ensure that you are at the solution folder

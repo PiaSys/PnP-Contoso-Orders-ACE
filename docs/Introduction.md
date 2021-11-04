@@ -1,17 +1,17 @@
-# Contoso Orders - Demo - Introduction
+# <a name="Intro">Contoso Orders - Demo - Introduction</a>
 
 The Contoso Orders is a sample solution that illustrates how to consume a multi-tenant API within a set of Microsoft Viva Connections Adaptive Card Extensions (ACEs) developed with SharePoint Framework (SPFx). The goal of this sample is to share with partners and ISVs how simple it is to create a modern solution for Microsoft Viva Connections using SharePoint Framework.
 
 The orders under the cover of the solution are randomly generated and associated with the current user's profile. As such, you should not rely on the actual content of the orders, but you should simply take inspiration from the solution.
 
-## Main functionalities of the ACEs
+## <a name="ACEs">Main functionalities of the ACEs</a>
 The solution showcases two Adaptive Card Extensions (ACEs) for Microsoft Viva Connections:
 - List Orders: browse a list of demo orders, via the ListOrders ACE
 - Manage Orders: browse and manage (add, update, delete) a list of demo orders, via the ManageOrders ACE
 
 Let's have a sneak peak of both of them.
 
-### List Orders
+### <a name="ListOrders">List Orders</a>
 This ACE provides a basic CardView that allows to see the number of orders in a demo list of orders.
 
 ![List Orders - CardView](../assets/Contoso-List-Orders-CardView.png)
@@ -22,7 +22,7 @@ Clicking on the "Show Orders" button you can activate a QuickView that will show
 
 The ACE allows to consume data in read-only mode, and as such you can't edit any of the order items.
 
-### Manage Orders
+### <a name="ManageOrders">Manage Orders</a>
 This ACE provides a basic CardView that allows to see the number of orders in a demo list of orders, like with the List Orders ACE.
 
 ![Manage Orders - CardView](../assets/Contoso-Manage-Orders-CardView.png)
@@ -41,7 +41,7 @@ In the QuickView you have to provide the Order ID, the Customer ID, the Order Da
 
 If you want to dig into the development of the ACEs, you can read the [following document](ACEs-Implementation-Details.md).
 
-## About the back-end APIs
+## <a name="BackEnd">About the back-end APIs</a>
 Under the cover of the solution there is a set of REST APIs - implemented as an Azure Function App - that are configured to work in a multi-tenant environment. It is importante to notice that the APIs are secured with Azure Active Directory (AAD) and when the ACEs access the API endpoint they provide an OAuth 2.0 Access Token with specific permission scopes.
 In fact, the APIs are registered in AAD and provide a couple of permission scopes:
 - Orders.Read: allows reading the whole list of orders and retrieving a specific order by ID.
