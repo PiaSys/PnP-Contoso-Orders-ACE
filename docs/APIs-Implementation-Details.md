@@ -127,11 +127,11 @@ namespace Contoso.Orders.FunctionApp
 ```
 
 The **Configure** method registers the authentication handler via **Microsoft.Identity.Web**, using the **AddAuthenticationCore** method chained with **AddMicrosoftIdentityWebApiAuthentication**. In fact, the APIs will authenticate users via OAuth 2.0 Access Token, and the **AddAuthenticationCore** is configured accordingly to this need.
-Then, there are additional settings configured to validate the Access Tokens provided to the API. Notice that the sample code simply accepts any token issuer (i.e. any tenant), but in a real scenario you could define your own issuer validation logic.
+Then, there are additional settings configured to validate the Access Tokens provided to the API. Notice that the sample code simply accepts any token issuer (i.e. any tenant), but in a real scenario you should define your own issuer validation logic.
 
 > Note: For example, if you are building a multi-tenant API that is available to a set of registered customers, you can configure in a backend database the list of issuers (i.e. tenant IDs) allowed to consume your APIs.
 
-You also need to configure the API app (the Function App in this scenario) with the settings about the backing AAD app. Here is a sample [local.settings.json](../src/Contoso.Orders.FunctionApp/local.settings.json) configuration file.
+You also need to configure the API app (the Function App in this scenario) with the settings about the backing AAD app. Here is a sample *local.settings.json* configuration file.
 
 ```JSON
 {
