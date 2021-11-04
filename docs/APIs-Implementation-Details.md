@@ -40,9 +40,9 @@ Now click on "Expose an API" in the left menu and configure the app to expose an
 
 ![AAD in Azure Portal](../assets/Azure-Portal-AAD-App-Expose-API.png)
 
-In this page, first of all you have to configure the Application ID URI for your app. We suggest you to use a value like **api://pnp.contoso.orders**.
+In this page, first of all you have to configure the **Application ID URI** for your app. We suggest you to use a value like **api://pnp.contoso.orders**.
 
-> Note: The default value suggested by AAD for the **Application ID URI** is api://GUID where GUID is the ClientId of your app. However, this option is hard to remember and write.
+> Note: The default value suggested by AAD for the **Application ID URI** is api://GUID where GUID is the ClientId of your app. However, this option is hard to remember and write. A descriptive URI is definitely better.
 
 Then you can click on **+ Add a scope** and create all the permission scopes that you want to define for your API. For example, in the current solution we defined:
 - Orders.FullControl
