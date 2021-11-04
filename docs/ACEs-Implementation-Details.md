@@ -1,10 +1,10 @@
-# ACEs Implementation Details
+# <a name="ACEsImplementation">ACEs Implementation Details</a>
 The source code of the ACEs solution is available [here](../src/Contoso.Orders.SPFx). 
 In the following picture you can see the outline of the solution in Visual Studio Code.
 
 ![SPFx solution outline](../assets/Contoso-Orders-SPFx-Outline.png)
 
-## OrdersService
+## <a name="OrderService">OrdersService</a>
 From an implementation point of view, both the ACEs (ListOrders and ManageOrders) rely on a service called **OrdersService** and defined in file [OrderService.ts](../src/Contoso.Orders.SPFx/src/services/OrdersService.ts) under the services folder.
 
 The service provides all the basic CRUDQ (Create, Read, Update, Delete, Query) functionalities and is supported by the [backend APIs](./APIs-Implementation-Details.md). In the following code excerpt you can see the interface implemented by the service.
@@ -152,10 +152,10 @@ For the sake of completeness, the sample defines also a set of localized strings
   }
 ```
 
-## Adaptive Card Extensions (ACEs)
+## <a name="ACEs">Adaptive Card Extensions (ACEs)</a>
 Both the ACEs rely on the OrderService class to consume the backend API.
 
-### ListOrders
+### <a name="ListOrders">ListOrders</a>
 Let's consider for example the ListOrders extension. The ListOrders ACE is defined in the [ListOrdersAdaptiveCardExtension.ts](../src/Contoso.Orders.SPFx/src/adaptiveCardExtensions/listOrders/ListOrdersAdaptiveCardExtension.ts) file.
 Notice the declaration of the **IListOrdersAdaptiveCardExtensionProps** and **IListOrdersAdaptiveCardExtensionState** to hold the properties and the state of the ACE. The definition of the ACE relies on those two interfaces and the out of the box infrastructure of SPFx will share both properties and state with all the cards (CardViews and QuickViews) related to the ACE.
 
@@ -470,7 +470,7 @@ Then all the magic happens in the [ListOrdersQuickViewTemplate.json](../src/Cont
 The **Title** and **SubTitle** are rendered via the Adaptive Card databinding syntax **${title}** and **${subTitle}**. Then the collection of orders is rendered configuring **"$data": "${orders}"** in the Container defined in the card definition. For each order item in the **orders** collection, the JSON renders a set of properties via databinding.
 Notice the logic inside the Adaptive Card to handle the different values of the **status** property of each order item to define the color for the status string.
 
-### ManageOrders
+### <a name="ManageOrders">ManageOrders</a>
 The ManageOrders ACE internally works almost the same as the ListOrders one. For example, the CardView still shows a message about the number of orders defined in the system. However, there are two buttons in the CardView (when it is configured to render in *Large* mode): one to show orders ad another one to add a new order.
 
 ![Manage Orders CardView](../assets/Contoso-Manage-Orders-CardView.png)
@@ -935,7 +935,7 @@ The **onAction** method of the **AddOrderQuickView** type takes care of insertin
 
 ![Add Order Quick View](../assets/Contoso-Manage-Orders-QuickView-Add.png)
 
-## Wrap up
+## <a name="WrapUp">Wrap up</a>
 You have seen how easy and simple it is to define an ACE with SPFx. You can find further details here:
 - [Overview of Viva Connections Extensibility](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/overview-viva-connections)
 - [Build your first SharePoint Adaptive Card Extension](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/viva/get-started/build-first-sharepoint-adaptive-card-extension)

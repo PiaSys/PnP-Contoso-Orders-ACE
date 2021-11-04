@@ -1,7 +1,7 @@
-# APIs Implementation Details
+# <a name="APIsImplementation">APIs Implementation Details</a>
 The API for this solution is registered in Azure Active Directory (AAD) as a multi-tenant app, and is secured using OAuth 2.0 and custom permission scopes. In this document you will learn how to configure the solution, so that you can do it yourself for any other custom solution that you will develop.
  
-## Azure Active Directory app registration
+## <a name="AADAppRegistration">Azure Active Directory app registration</a>
 First of all, you need to register a multi-tenant app in Azure Active Directory (AAD) in order to being able to validate users' requests. Choose a tenant that you want to use as the *main* tenant for your app registration. This will be the tenant where you will register and maintain the app settings for all the tenants. 
 
 > Note: you should choose a tenant that is authoritative for your company and you should consider configuring the app as Publisher Verified by following the instructions provided in this [document](https://docs.microsoft.com/en-us/azure/active-directory/develop/publisher-verification-overview). 
@@ -58,7 +58,7 @@ The **Admins only** option means that only Tenant Global Admins will be allowed 
 
 Lastly, when you create a new permission scope, you have to configure it as **Enabled** in order to being able to use it.
 
-## Visual Studio API solution
+## <a name="VisualStudioAPI">Visual Studio API solution</a>
 The source code of the back-end APIs solution is available [here](../src/Contoso.Orders.FunctionApp). 
 In the following picture you can see the outline of the solution in Visual Studio.
 
@@ -133,6 +133,7 @@ Then, there are additional settings configured to validate the Access Tokens pro
 
 You also need to configure the API app (the Function App in this scenario) with the settings about the backing AAD app. Here is a sample *local.settings.json* configuration file.
 
+<a name="AADSettings"></a>
 ```JSON
 {
   "IsEncrypted": false,
@@ -171,7 +172,7 @@ In the configuration settings of the Function App on Microsoft Azure, you will h
 
 ![AAD in Azure Portal](../assets/Azure-FunctionApp-Configuration-Settings.png)
 
-## Functions implementation and authorization
+## <a name="Functions">Functions implementation and authorization</a>
 All the functions are defined in a unique file called [OrdersFunction.cs](../src/Contoso.Orders.FunctionApp/OrdersFunction.cs).
 In the class there is some plumbing code, which we will not describe, to generate and manage the random list of orders for every user consuming the APIs based on the user's unique ID. Then, there are methods (i.e. functions) that map 1 to 1 to the APIs exposed. For example, let's have a look at the function to retrieve the whole list of orders (**GetOrders**).
 
@@ -269,7 +270,7 @@ public IActionResult GrantPermissions(
 
 Internally, this last function simply relies on a *state* querystring argument, which is supposed to represent the name of the target tenant where the app is going to be registered. The function dinamically generates a URL to the **API Access** page of the SharePoint Online Admin Center. The URL of this function will be used as the Return URL in the AAD app registration. It is the function backing the API available at the URL https://[function-app-name].azurewebsites.net/api/grant, where [function-app-name] is the name that you will use for hosting the Function App on Microsoft Azure.
 
-### FunctionAuthorizeAttribute
+### <a name="FunctionAuthorizeAttribute">FunctionAuthorizeAttribute</a>
 The attribute **FunctionAuthorize** is defined in class [FunctionAuthorizeAttribute.cs](../src/Contoso.Orders.FunctionApp/FunctionAuthorizeAttribute.cs). Internally the class leverages the preview feature of the Function Filters. In fact, the attribute inherits from **FunctionInvocationFilterAttribute** and implements a custom logic by overriding the **OnExecutingAsync** method of the base class. You can see the actual implementation in the following code excerpt.
 
 ```csharp
@@ -415,10 +416,10 @@ namespace Contoso.Orders.FunctionApp
 ```
 
 As you can see, the internal logic of the **OnExecutingAsync** method gets a reference to the current **HttpContext** object.
-Then, using the ***Microsoft.Identity.Web*** library, invokes the **AuthenticateAzureFunctionAsync** method to validate the OAuth 2.0 Access Token provided as a Bearer Authorization header in the HTTP request for the target API. Once the request is authenticated, the code tries to get the permission scopes associated defined in the Access Token (via the *http://schemas.microsoft.com/identity/claims/scope* claim). If the permission scopes are available, it validates that those scopes match with the requirements of the current function (i.e. *Orders.Read* or *Orders.FullControl*). If the permission scopes are correct, all good. If not, the filter will clear the response and send back an HTTP 403 (Forbidden) response.
+Then, using the ***Microsoft.Identity.Web*** library, invokes the **AuthenticateAzureFunctionAsync** method to validate the OAuth 2.0 Access Token provided as a Bearer Authorization header in the HTTP request for the target API. Once the request is authenticated, the code tries to get the permission scopes defined in the Access Token (via the *http://schemas.microsoft.com/identity/claims/scope* claim). If the permission scopes are available, it validates that those scopes match with the requirements of the current function (i.e. *Orders.Read* or *Orders.FullControl*). If the permission scopes are correct, all good. If not, the filter will clear the response and send back an HTTP 403 (Forbidden) response.
 
-## Function App Hosting
-We are now ready to host the Function App on Microsoft Azure. From Visual Studio you can publish the solution target a new or an already existing Function App.
+## <a name="">Function App Hosting</a>
+We are now ready to host the Function App on Microsoft Azure. From Visual Studio you can publish the solution targeting a new or an already existing Function App.
 Once the app is published, remember to configure the settings accordingly to what is described in previous section <a href="#authN">**Authentication**</a>.
 
 > Important: Being the fact that the AAD app is configured for multi-tenant and the Functions authenticate and authorize requests with a custom logic, you don't need to configure any authentication provider in the Function App. Actually, you can completely skip the EasyAuth configuration flow of the Azure Function App.
