@@ -1,5 +1,4 @@
 # ACEs Implementation Details
-
 The source code of the ACEs solution is available [here](../src/Contoso.Orders.SPFx). 
 In the following picture you can see the outline of the solution in Visual Studio Code.
 
@@ -933,6 +932,8 @@ Just for the sake of completeness, the [AddOrderQuickView.ts](../src/Contoso.Ord
 
 Notice how easy it is to define a form with fields and labels, configuring required fields, defining validation exception messages, etc. At the very end, from a developer point of view you simply need to define the Adaptive Card JSON template and you can skip developing complex input validation rules, and you can rather simply benefit of the out of the box functionalities of Adaptive Cards.
 The **onAction** method of the **AddOrderQuickView** type takes care of inserting the new order and then uses the **quickViewNavigator** property to replace the current QuickView with either the **ConfirmQuickView** or the **ErrorQuickView** depending on the outcome of the operation.
+
+![Add Order Quick View](../assets/Contoso-Manage-Orders-QuickView-Add.png)
 
 ## Wrap up
 You have seen how easy and simple it is to define an ACE with SPFx. You can find further details here:

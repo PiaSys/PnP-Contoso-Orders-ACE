@@ -1,19 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using Microsoft.Azure.Functions.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.ObjectPool;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
 using Contoso.Orders.FunctionApp;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Security.Claims;
 using Microsoft.Identity.Web;
-using Microsoft.IdentityModel.Tokens;
 
 [assembly: FunctionsStartup(typeof(Startup))]
 

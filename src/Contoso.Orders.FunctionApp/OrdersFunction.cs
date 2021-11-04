@@ -11,8 +11,6 @@ using Contoso.Orders.FunctionApp.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Microsoft.Azure.WebJobs.Host;
-using System.Threading;
 
 namespace Contoso.Orders.FunctionApp
 {
@@ -28,11 +26,10 @@ namespace Contoso.Orders.FunctionApp
             new Dictionary<string, List<Order>>();
 
         /// <summary>
-        /// Provides the list of orders
+        /// Redirects an admin to the API Access page of SPO
         /// </summary>
         /// <param name="req">The request</param>
         /// <param name="log">The logging interface</param>
-        /// <returns>The list of orders</returns>
         [FunctionName("GrantPermissions")]
         public IActionResult GrantPermissions(
             [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "grant")] HttpRequest req,
