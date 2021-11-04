@@ -15,6 +15,13 @@ The goal of this sample is to share with partners and ISVs how simple it is to c
 
 > Get your own free development tenant by subscribing to [Microsoft 365 developer program](http://aka.ms/o365devprogram)
 
+## Documentation
+You can find additional technical details about the solution reading the following documents:
+- [Contoso Orders - Demo - Introduction](./docs/Introduction.md)
+- [Minimal Path to Awesome](./docs/MinimalPathToAwesome.md)
+- [ACEs Implementation Details](./docs/ACEs-Implementation-Details.md)
+- [APIs Implementation Details](./docs/APIs-Implementation-Details.md)
+
 ## Prerequisites
 
 The SPFx solution relies on a set of APIs built with .NET Core. The source code of the APIs is available [here](./src/Contoso.Orders.FunctionApp) in this repository.
